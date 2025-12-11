@@ -21,7 +21,7 @@ The European Union is pushing forward with legislation known as **"Chat Control"
 - 👁️ **Client-side scanning** of your personal communications
 - 📊 **AI-based content analysis** of every message you send
 
-While framed as child protection, security experts, privacy advocates, and even the EU's own legal advisors have warned that this legislation would:
+While framed as child protection, **security experts, privacy advocates, and even the EU's own legal advisors have warned that** this legislation would:
 
 1. **Destroy end-to-end encryption** as we know it
 2. **Create vulnerabilities** exploitable by hackers and hostile states
