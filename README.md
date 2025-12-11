@@ -93,7 +93,7 @@ Enclawe is our answer to surveillance overreach. It's a communication tool desig
 - Server **never** has access to encryption keys
 - Messages are **deleted from Telegram** after delivery
 
-For complete technical details, see [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+For complete technical details, see [ARCHITECTURE.md](/ARCHITECTURE.md).
 
 ---
 
@@ -247,7 +247,7 @@ We do not condone illegal activity. Users are responsible for their own actions.
 
 ## 🔗 Links
 
-- [Architecture Document](docs/ARCHITECTURE.md)
+- [Architecture Document](/ARCHITECTURE.md)
 - [Setup Guide](docs/SETUP.md)
 - [API Documentation](docs/API.md)
 - [LibreTranslate](https://libretranslate.com/)
