@@ -1,0 +1,279 @@
+<!--
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  EnclaWe 1.0   Rel 251212
+  December 2025
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Aldus Prinzimaker
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  File: client/index.html
+  Main HTML file - Secure, encrypted, multilingual chat
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enclawe - Secure, encrypted, multilingual chat">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>Enclawe</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+  <div id="app">
+    <!-- Landing Screen -->
+    <section id="landing-screen" class="screen">
+      <div class="landing-container">
+        <header class="landing-header">
+          <h1 class="logo">Enclawe</h1>
+          <p class="tagline">Secure. Encrypted. Multilingual.</p>
+        </header>
+
+        <div class="landing-actions">
+          <button id="btn-create-room" class="btn btn-primary btn-large">
+            Create New Room
+          </button>
+          <div class="divider">
+            <span>or</span>
+          </div>
+          <button id="btn-join-room" class="btn btn-secondary btn-large">
+            Join Existing Room
+          </button>
+        </div>
+
+        <footer class="landing-footer">
+          <p>No accounts. No tracking. No message storage.</p>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Join Room Screen -->
+    <section id="join-screen" class="screen hidden">
+      <div class="form-container">
+        <button id="btn-back-join" class="btn-back" aria-label="Go back">
+          &larr; Back
+        </button>
+        <h2>Join Room</h2>
+        <form id="join-form">
+          <div class="form-group">
+            <label for="join-room-id">Room ID</label>
+            <input type="text" id="join-room-id" placeholder="METEOR-1234"
+                   pattern="[A-Z]+-\d{4}" required autocomplete="off">
+            <span class="form-hint">Format: WORD-0000</span>
+          </div>
+          <div class="form-group">
+            <label for="join-room-key">Encryption Key</label>
+            <input type="text" id="join-room-key" placeholder="Paste the encryption key"
+                   required autocomplete="off">
+            <span class="form-hint">Get this from the room creator</span>
+          </div>
+          <div class="form-group">
+            <label for="join-language">Your Language</label>
+            <select id="join-language" required>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="pt">Português</option>
+              <option value="zh">中文</option>
+              <option value="ja">日本語</option>
+              <option value="ko">한국어</option>
+              <option value="ar">العربية</option>
+              <option value="ru">Русский</option>
+              <option value="da">Dansk</option>
+              <option value="nl">Nederlands</option>
+              <option value="pl">Polski</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">Join Room</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Create Room Screen -->
+    <section id="create-screen" class="screen hidden">
+      <div class="form-container">
+        <button id="btn-back-create" class="btn-back" aria-label="Go back">
+          &larr; Back
+        </button>
+        <h2>Create New Room</h2>
+        <form id="create-form">
+          <div class="form-group">
+            <label for="create-language">Your Language</label>
+            <select id="create-language" required>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="pt">Português</option>
+              <option value="zh">中文</option>
+              <option value="ja">日本語</option>
+              <option value="ko">한국어</option>
+              <option value="ar">العربية</option>
+              <option value="ru">Русский</option>
+              <option value="da">Dansk</option>
+              <option value="nl">Nederlands</option>
+              <option value="pl">Polski</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">Create Room</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Share Room Screen -->
+    <section id="share-screen" class="screen hidden">
+      <div class="form-container share-container">
+        <h2>Room Created!</h2>
+        <p class="share-instruction">Share these details with others to let them join:</p>
+
+        <div class="share-info">
+          <div class="share-field">
+            <label>Room ID</label>
+            <div class="share-value">
+              <span id="share-room-id">METEOR-1234</span>
+              <button id="btn-copy-room-id" class="btn-icon" title="Copy Room ID">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="share-field">
+            <label>Encryption Key</label>
+            <div class="share-value key-value">
+              <span id="share-room-key" class="monospace">abc123...</span>
+              <button id="btn-copy-room-key" class="btn-icon" title="Copy Key">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button id="btn-copy-all" class="btn btn-secondary">
+            Copy All Details
+          </button>
+        </div>
+
+        <div class="share-warning">
+          <strong>Important:</strong> Share the key securely. Anyone with the key can read messages.
+        </div>
+
+        <button id="btn-enter-room" class="btn btn-primary btn-large">
+          Enter Room
+        </button>
+      </div>
+    </section>
+
+    <!-- Chat Screen -->
+    <section id="chat-screen" class="screen hidden">
+      <header class="chat-header">
+        <div class="chat-header-left">
+          <button id="btn-leave-room" class="btn-icon" title="Leave Room">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <div class="room-info">
+            <h2 id="chat-room-id">METEOR-1234</h2>
+            <span id="connection-status" class="connection-status connection-connecting" title="Connecting"></span>
+          </div>
+        </div>
+        <div class="chat-header-right">
+          <button id="btn-toggle-sidebar" class="btn-icon" title="Toggle Participants">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </button>
+          <button id="btn-room-info" class="btn-icon" title="Room Info">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4"/>
+              <path d="M12 8h.01"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="chat-body">
+        <aside id="sidebar" class="chat-sidebar">
+          <div class="sidebar-section">
+            <h3>Participants</h3>
+            <ul id="participants-list" class="participants-list">
+              <!-- Participants added dynamically -->
+            </ul>
+          </div>
+          <div class="sidebar-section">
+            <h3>Your Identity</h3>
+            <p id="my-identity" class="my-identity">Loading...</p>
+          </div>
+        </aside>
+
+        <main class="chat-main">
+          <div id="messages" class="messages-container">
+            <!-- Messages added dynamically -->
+          </div>
+
+          <form id="message-form" class="message-form">
+            <input type="text" id="message-input" placeholder="Type a message..."
+                   autocomplete="off" maxlength="4000">
+            <button type="submit" class="btn btn-primary btn-send" title="Send">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </form>
+        </main>
+      </div>
+    </section>
+
+    <!-- Room Info Modal -->
+    <div id="room-info-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <h2>Room Information</h2>
+        <div class="modal-body">
+          <div class="info-field">
+            <label>Room ID</label>
+            <span id="modal-room-id">METEOR-1234</span>
+          </div>
+          <div class="info-field">
+            <label>Encryption Key</label>
+            <span id="modal-room-key" class="monospace">abc123...</span>
+          </div>
+          <button id="btn-modal-copy" class="btn btn-secondary">Copy Room Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications" class="notifications-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+      <div class="loading-spinner"></div>
+      <p class="loading-message">Connecting...</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/crypto.js"></script>
+  <script src="js/identity.js"></script>
+  <script src="js/websocket.js"></script>
+  <script src="js/translate.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

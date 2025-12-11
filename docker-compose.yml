@@ -1,3 +1,13 @@
+# ------------------------------------------------------------
+# EnclaWe 1.0   Rel 251212
+# December 2025
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Aldus Prinzimaker
+# ------------------------------------------------------------
+# File: docker-compose.yml
+# Docker Compose configuration for development environment
+# ------------------------------------------------------------
+
 version: '3.8'
 
 # ===========================================
@@ -44,6 +54,7 @@ services:
       - HOST=0.0.0.0
       - REDIS_URL=redis://redis:6379
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
       - TELEGRAM_WEBHOOK_URL=${TELEGRAM_WEBHOOK_URL}
       - TELEGRAM_WEBHOOK_SECRET=${TELEGRAM_WEBHOOK_SECRET}
       - TRANSLATE_URL=http://libretranslate:5000
