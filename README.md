@@ -103,7 +103,7 @@ For complete technical details, see [ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/enclawe.git
+git clone https://github.com/prinzimaker/enclawe.git
 cd enclawe
 
 # Copy environment template
@@ -211,7 +211,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ```bash
 # Clone and install
-git clone https://github.com/YOUR_USERNAME/enclawe.git
+git clone https://github.com/prinzimaker/enclawe.git
 cd enclawe
 
 # Install server dependencies
