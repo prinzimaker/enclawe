@@ -2,7 +2,8 @@
 
 **Enclave + We = A safe space, together.**
 
-Enclawe is a secure, encrypted, multilingual chat platform that uses Telegram as a blind message relay. Messages are end-to-end encrypted before leaving your browser — not even Telegram can read them.
+Enclawe is a secure, encrypted, multilingual chat platform designed to protect private communication as a fundamental human right. Instead of implementing its own chat infrastructure, Enclawe uses Telegram as a blind message relay — ensuring massive scalability while keeping costs at zero. All messages are end-to-end encrypted before leaving your browser; not even Telegram can read them.
+In a world where governments push for backdoors and mass surveillance threatens the foundations of free society, Enclawe stands as a tool for freedom of expression and democratic discourse. Privacy is not a privilege — it is the bedrock of democracy.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
