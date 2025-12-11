@@ -1,0 +1,124 @@
+version: '3.8'
+
+# ===========================================
+# ENCLAWE - Docker Compose Configuration
+# ===========================================
+# 
+# Usage:
+#   Development:  docker-compose up
+#   Production:   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# ===========================================
+
+services:
+
+  # ===========================================
+  # WEB CLIENT
+  # Static files served by nginx
+  # ===========================================
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    networks:
+      - enclawe-network
+    restart: unless-stopped
+
+  # ===========================================
+  # NODE.JS SERVER
+  # WebSocket server & Telegram integration
+  # ===========================================
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=3001
+      - HOST=0.0.0.0
+      - REDIS_URL=redis://redis:6379
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_WEBHOOK_URL=${TELEGRAM_WEBHOOK_URL}
+      - TELEGRAM_WEBHOOK_SECRET=${TELEGRAM_WEBHOOK_SECRET}
+      - TRANSLATE_URL=http://libretranslate:5000
+      - TRANSLATE_ENABLED=${TRANSLATE_ENABLED:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      redis:
+        condition: service_healthy
+      libretranslate:
+        condition: service_started
+    networks:
+      - enclawe-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ===========================================
+  # REDIS
+  # Pub/Sub & temporary state storage
+  # ===========================================
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - enclawe-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ===========================================
+  # LIBRETRANSLATE
+  # Self-hosted translation service
+  # ===========================================
+  libretranslate:
+    image: libretranslate/libretranslate:latest
+    ports:
+      - "5000:5000"
+    environment:
+      # Load only necessary languages to reduce memory
+      - LT_LOAD_ONLY=en,es,fr,de,it,pt,zh,ja,ko,ar,ru,da,nl,pl
+      # Disable API key requirement for internal use
+      - LT_API_KEYS=false
+      # Disable web UI in production if desired
+      # - LT_FRONTEND=false
+    volumes:
+      - libretranslate_data:/home/libretranslate/.local
+    networks:
+      - enclawe-network
+    restart: unless-stopped
+    # LibreTranslate can take a while to start (downloading models)
+    # Be patient on first run
+
+# ===========================================
+# NETWORKS
+# ===========================================
+networks:
+  enclawe-network:
+    driver: bridge
+
+# ===========================================
+# VOLUMES
+# ===========================================
+volumes:
+  redis_data:
+    driver: local
+  libretranslate_data:
+    driver: local
